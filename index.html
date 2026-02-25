@@ -12,33 +12,53 @@
   <style>
     body { margin: 0; font-family: Arial, sans-serif; }
     header { padding: 10px 15px; }
+
     model-viewer {
       width: 100vw;
       height: calc(100vh - 60px);
       background: #f5f5f5;
+      position: relative;
     }
+
+    /* AR товч */
+    .ar-btn {
+      position: absolute;
+      left: 50%;
+      bottom: 16px;
+      transform: translateX(-50%);
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    /* AR дэмжихгүй үед model-viewer энэ товчийг автоматаар нууж болно */
+    model-viewer:not([ar-status="session-started"]) .ar-btn { }
   </style>
 </head>
 
 <body>
+  <header>
+    <h3>QR → WebAR Lab</h3>
+    <p>3D-г эргүүлж болно. AR товч дарж камер дээр байрлуул.</p>
+  </header>
 
-<header>
-  <h3>QR → WebAR Lab</h3>
-  <p>3D-г эргүүлж болно. AR товч дарж камер дээр байрлуул.</p>
-</header>
-
-<model-viewer
-  src="assets/model.glb"
-  ios-src="assets/model.usdz"
-  ar
-  ar-modes="scene-viewer webxr quick-look"
-  ar-placement="floor"
-  camera-controls
-  auto-rotate>
-</model-viewer>
-
+  <model-viewer
+    src="assets/model.glb"
+    ios-src="assets/model.usdz"
+    ar
+    ar-modes="webxr scene-viewer quick-look"
+    ar-placement="floor"
+    camera-controls
+    auto-rotate
+    reveal="interaction"
+  >
+    <!-- “View in AR” товч (custom) -->
+    <button class="ar-btn" slot="ar-button">📱 AR үзэх</button>
+  </model-viewer>
 </body>
-
 </html>
-
-
